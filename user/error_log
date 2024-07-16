@@ -1,0 +1,4 @@
+[07-Apr-2023 09:45:19 UTC] PHP Warning:  Undefined variable $image_tmp_name in /home/anitiumn/public_html/user/register.php on line 62
+[07-Apr-2023 09:45:19 UTC] PHP Warning:  Undefined variable $image_folder in /home/anitiumn/public_html/user/register.php on line 62
+[30-Mar-2024 15:22:58 UTC] PHP Notice:  Undefined variable: image_tmp_name in /home/starsmms/public_html/user/register.php on line 62
+[30-Mar-2024 15:22:58 UTC] PHP Notice:  Undefined variable: image_folder in /home/starsmms/public_html/user/register.php on line 62
