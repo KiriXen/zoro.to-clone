@@ -3,7 +3,7 @@ $conn = mysqli_connect("localhost", 'root' , '', "anime") or die("Connection fai
 
 
 $websiteTitle = "Zoro"; // Website Name
-$websiteUrl = "//{$_SERVER['SERVER_NAME']}";  // Website URL
+$websiteUrl = "//{$_SERVER['SERVER_NAME']}/newsite";  // Website URL
 $websiteLogo = $websiteUrl . "/files/images/logo_zoro.png"; // Logo
 $contactEmail = "contact@codecheap.shop"; // Contact Email
 

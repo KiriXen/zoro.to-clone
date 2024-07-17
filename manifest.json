@@ -3,13 +3,13 @@
     "name": "Zoro.to",
     "icons": [
         {
-            "src": "/newsite/files/images/touch-icon-192x192.png",
+            "src": "/files/images/touch-icon-192x192.png",
             "type": "image/png",
             "sizes": "192x192",
             "purpose": "any maskable"
         },
         {
-            "src": "/newsite/files/images/touch-icon-512x512.png",
+            "src": "/files/images/touch-icon-512x512.png",
             "type": "image/png",
             "sizes": "512x512",
             "purpose": "any maskable"
