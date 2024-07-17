@@ -80,7 +80,7 @@ h6 {
 .btn-primary,
 .btn-tab.active {
     background: #cae962 !important;
-    color: rgb(255, 255, 255) !important;
+    color: #111 !important;
     border-color: #cae962 !important;
     box-shadow: none !important
 }
@@ -490,7 +490,7 @@ h6 {
     font-weight: 400;
     padding: 10px;
     background: rgba(255, 255, 255, .1);
-    border-radius: 50px
+    border-radius: 4px
 }
 
 .zoro-group .zrg-list .item .zr-social-button.dc-btn {

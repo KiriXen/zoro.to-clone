@@ -11,4 +11,4 @@
           <noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
           <script id="dsq-count-scr" src="<?=$disqus?>/count.js" async></script>  
 </div>
-<script id="dsq-count-scr" src="//random-co6vnxqche.disqus.com/count.js" async></script>
+<script id="dsq-count-scr" src="//zorobysam.disqus.com/count.js" async></script>

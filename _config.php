@@ -2,26 +2,19 @@
 $conn = mysqli_connect("localhost", 'root' , '', "anime") or die("Connection fail");
 
 
-$websiteTitle = "Zoro"; // Website Name
-$websiteUrl = "//{$_SERVER['SERVER_NAME']}/newsite";  // Website URL
-$websiteLogo = $websiteUrl . "/files/images/logo_zoro.png"; // Logo
-$contactEmail = "contact@codecheap.shop"; // Contact Email
+$websiteTitle = "Zoro";
+$websiteUrl = "//{$_SERVER['SERVER_NAME']}";
+$websiteLogo = $websiteUrl . "/files/images/logo_zoro.png";
+$contactEmail = "kirixenz@gmail.com";
 
-$version = "0.5";
+$version = "0.1";
 
-// Socials 
-$discord = "your link"; // Discord
-$github = "your link"; // Reddit
-$twitter = "your link"; // Twitter
+$discord = "https://dsc.gg/kirixen";
+$github = "https://github.com/kirixen";
+$twitter = "https://x.com/KiriX3n";
  
+$disqus = "https://zorobysam.disqus.com/embed.js";
+$api = "https://anime-api-3yi7.onrender.com"; 
 
-
-$disqus = "https://aniwatchtv-1.disqus.com/embed.js"; // Disqus
-
-
-// API URL
-$api = "https://anime-api-3yi7.onrender.com"; // 
-
-
-$banner = $websiteUrl . "/files/images/banner.png";  //Banner
+$banner = $websiteUrl . "/files/images/banner.png";
 ?>

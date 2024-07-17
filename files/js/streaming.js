@@ -21,7 +21,7 @@ document.addEventListener("DOMContentLoaded", ()=>{
                                 </div>
                                 <img class="film-poster-img lazyload"
                                     data-src="${item.imgUrl}"
-                                    src="https://anikatsu.me/files/images/no_poster.jpg"
+                                    src="../images/no_poster.jpg"
                                     alt="${item.name}">
                                 <a class="film-poster-ahref"
                                     href="/watch/${item.episodeId}"
