@@ -24,7 +24,7 @@ if (end($slug) == 'dub') {
 $getEpisode = file_get_contents("$api/getEpisode/$url");
 $getEpisode = json_decode($getEpisode, true);
 if (isset($getEpisode['error'])) {
-    header('Location: https://anikatsu.me/home');
+    header('Location: home.php');
 }
 ;
 
@@ -209,7 +209,7 @@ if (isset($_COOKIE['userID'])) {
                                         </div>
                                         <!---recommended to use Anikatsu Servers only ---->
                                         <iframe name="iframe-to-load"
-                                            src="https://player.ryuk.to/index.php?id=<?= $url ?>" frameborder="0"
+                                            src="<?=$websiteUrl?>/player/v1.php?id=<?= $url ?>" frameborder="0"
                                             scrolling="no"
                                             allow="accelerometer;autoplay;encrypted-media;gyroscope;picture-in-picture"
                                             allowfullscreen="true" webkitallowfullscreen="true"
@@ -272,13 +272,13 @@ if (isset($_COOKIE['userID'])) {
                                             <div class="ps__-title"><i class="fas fa-server mr-2"></i>SERVERS:</div>
                                             <div class="ps__-list">
                                                 <div class="item">
-                                                    <a id="server1" href="https://player.ryuk.to?id=<?= $url ?>"
+                                                    <a id="server1" href="<?=$websiteUrl?>/player/v1.php?id=<?= $url ?>"
                                                         target="iframe-to-load" class="btn btn-server active">Server
                                                         1</a>
                                                 </div>
                                                 <div class="item">
                                                     <a id="server2"
-                                                        href="https://player.ryuk.to/v2.php?id=<?= $url ?>"
+                                                        href="https://player.ryuk.to?id=<?= $url ?>"
                                                         target="iframe-to-load" class="btn btn-server">Server 2</a>
                                                 </div>
                                             </div>
