@@ -9,7 +9,7 @@
                             <div class="block_area-content block_area-list film_list film_list-grid film_list-wfeature">
                                 <div class="film_list-wrap">
                                 <?php 
-                                $json = file_get_contents("$api/recent-release?type=1");
+                                $json = file_get_contents("$api/recent-release?type=1&page=1");
                                 $json = json_decode($json, true);
                                 foreach($json as $recentRelease) { ?>
                                     <div class="flw-item ">

@@ -245,8 +245,24 @@ $episodelist = $getAnime['episode_id'];
                                         <span class="item-head">Status:</span> <a href="<?php if ($getAnime['status'] == "Completed") {echo "/status/completed";} else {echo "/status/ongoing";}?>"><?=$getAnime['status']?></a>
                                     </div>
                                     <div class="item item-list">
-                                        <span class="item-head">Genres:</span> <?php foreach($getAnime['genres'] as $genre) { ?><a href="<?=$websiteUrl?>/genre/<?php $genreUrl = strtolower($genre); echo str_replace(" ","+", $genreUrl);?>"><?=$genre?></a><?php } ?>
-                                    </div>
+    <span class="item-head">Genres:</span>
+    <?php
+    // Split genres string into an array using comma and optional whitespace as delimiter
+    $genresArray = array_map('trim', explode(',', $getAnime['genres']));
+    
+    // Loop through each genre in the array
+    foreach($genresArray as $genre) {
+        // Trim any extra whitespace
+        $genre = trim($genre);
+        if (!empty($genre)) { // Check if genre is not empty
+    ?>
+            <a href="<?=$websiteUrl?>/genre/<?=strtolower(str_replace(" ", "+", $genre))?>"><?=$genre?></a>
+    <?php
+        }
+    }
+    ?>
+</div>
+
                                     <div class="film-text w-hide"><?=$websiteTitle?> is a site to watch online anime like <strong><?=$getAnime['name']?></strong> online, or you can even watch <strong><?=$getAnime['name']?></strong> in HD quality</div>
                                 </div>
                                 <div class="clearfix"></div>
