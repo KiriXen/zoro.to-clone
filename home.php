@@ -35,10 +35,15 @@ require('./_config.php');
     <meta property="og:image:height" content="350">
     <meta name="apple-mobile-web-app-status-bar" content="#202125">
     <meta name="theme-color" content="#202125">
-    <link rel="shortcut icon" href="<?=$websiteUrl?>/favicon.ico?v=<?=$version?>" type="image/x-icon">
-    <link rel="apple-touch-icon" href="<?=$websiteUrl?>/favicon.ico?v=<?=$version?>" />
+    <link rel="apple-touch-icon" href="<?=$websiteUrl?>/favicon.png?v=<?=$version?>" />
     <link rel="stylesheet" href="<?=$websiteUrl?>/files/css/style.css?v=<?=$version?>">
     <link rel="stylesheet" href="<?=$websiteUrl?>/files/css/min.css?v=<?=$version?>">
+    <link rel="shortcut icon" href="<?=$websiteUrl?>/favicon.png?v=<?=$version?>" type="image/x-icon"/>
+    <link rel="apple-touch-icon" sizes="180x180" href="<?=$websiteUrl?>/apple-touch-icon.png">
+    <link rel="icon" type="image/png" sizes="32x32" href="<?=$websiteUrl?>/favicon-32x32.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="<?=$websiteUrl?>/favicon-16x16.png">
+    <link rel="mask-icon" href="<?=$websiteUrl?>/safari-pinned-tab.svg" color="#5bbad5">
+    <link rel="icon" sizes="192x192" href="<?=$websiteUrl?>/files/images/touch-icon-192x192.png?v=<?=$version?>">
     <script type="text/javascript">
     setTimeout(function() {
         var wpse326013 = document.createElement('link');
@@ -143,7 +148,7 @@ require('./_config.php');
                                             </div>
                                         </div>
                                         <img class="film-poster-img lazyload" data-src="<?=$rows['anime_image']?>"
-                                            src="https://anikatsu.me/files/images/no_poster.jpg"
+                                            src="<?=$websiteUrl?>/files/images/no_poster.jpg"
                                             alt="<?=$rows['anime_title']?>">
                                         <a class="film-poster-ahref" href="/watch/<?=$rows['anime_id']?>"
                                             title="<?=$rows['anime_title']?>" data-jname="<?=$rows['anime_title']?>"><i

@@ -13,15 +13,20 @@
                         <div class="swiper-wrapper">
 
                             <?php 
-                                $d=  date("d");
+                                $d = date("d");
                                 $json = file_get_contents("$api/popular?page=1");
                                 $json = json_decode($json, true);
-                                foreach($json as $key => $popular) { ?>
+                                
+                                // Limiting to top 10 entries
+                                $top10 = array_slice($json, 0, 10);
+                                
+                                foreach($top10 as $key => $popular) { ?>
 
                             <div class="swiper-slide">
                                 <div class="item">
                                     <div class="number">
-                                        <span><?=$key+1?></span>
+                                        <?php $number = $key + 1; ?>
+                                        <span><?= $number <= 9 ? '0' . $number : $number ?></span>
                                         <div class="film-title dynamic-name" data-jname="<?=$popular['animeTitle']?>">
                                             <?=$popular['animeTitle']?>
                                         </div>
@@ -29,15 +34,13 @@
                                     <a href="/anime/<?=$popular['animeId']?>" class="film-poster"
                                         title="<?=$popular['animeTitle']?>">
                                         <img data-src="<?=$popular['imgUrl']?>"
-                                            src="https://anikatsu.me/files/images/no_poster.jpg"
+                                            src="<?=$websiteUrl?>/files/images/no_poster.jpg"
                                             class="film-poster-img lazyload" alt="<?=$popular['animeTitle']?>">
                                     </a>
                                     <div class="clearfix"></div>
                                 </div>
                             </div>
                             <?php } ?>
-
-
 
                         </div>
                         <div class="clearfix"></div>

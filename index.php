@@ -31,7 +31,7 @@ require('./_config.php');
     <link rel="stylesheet"
         href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css?v=<?= $version ?>">
     <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.3.1/css/all.css?v=<?= $version ?>">
-    <link rel="stylesheet" href="<?= $websiteUrl ?>/files/css/home.css?v=<?= $version ?>?v=0.5">
+    <link rel="stylesheet" href="<?= $websiteUrl ?>/files/css/home.css?v=<?= $version ?>">
     <link rel="manifest" href="./manifest.json">
 </head>
 <script>
@@ -70,7 +70,7 @@ require('./_config.php');
             <div id="mw-top">
                 <div class="container">
                     <div class="mwt-content">
-                        <div class="mwt-icon"><img src="https://anikatsu.me/files/images/render1.png">
+                        <div class="mwt-icon"><img src="<?= $websiteUrl ?>/files/images/zoro.png">
                         </div>
                         <div class="mwh-logo">
                             <a href="<?= $websiteUrl ?>/home" class="mwh-logo-div">

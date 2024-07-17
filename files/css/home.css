@@ -25,7 +25,7 @@ a {
 }
 
 a:hover {
-    color: #ef547a;
+    color: #cae962;
     text-decoration: none
 }
 
@@ -44,7 +44,7 @@ button,
 
 .btn-highlight {
     font-weight: 600;
-    color: #ef547a;
+    color: #cae962;
     font-size: 1.2em;
     position: relative;
     padding-left: 50px;
@@ -187,7 +187,7 @@ button,
     margin: 0;
     position: relative;
     z-index: 3;
-    background-image: url("https://anikatsu.me/files/images/anikatsu-bg.webp");
+    background-image: url("../images/zoro-bg.jpg");
     background-position: 50% 25%;
     background-size: cover;
 }
@@ -249,7 +249,7 @@ button,
     font-size: 28px;
     font-weight: 700;
     text-align: center;
-    color: #ef547a;
+    color: #cae962;
     margin: 0 0 10px 0
 }
 
@@ -266,7 +266,7 @@ button,
     width: 10px;
     height: 10px;
     border-radius: 50%;
-    background: #ef547a;
+    background: #cae962;
     left: 0;
     position: absolute;
     top: 8px;
@@ -299,7 +299,7 @@ button,
 
 #action-button {
     margin-bottom: 50px;
-    background: #ef547a;
+    background: #cae962;
     border-radius: 0 0 30px 30px;
 }
 
@@ -309,7 +309,7 @@ button,
     padding: 15px 20px;
     font-weight: 600;
     background: none !important;
-    color: rgb(255, 255, 255) !important;
+    color: #111 !important;
     border: none !important;
     box-shadow: none !important;
 }
@@ -365,7 +365,7 @@ button,
 
 .mw-buttons .btn-primary {
     font-weight: 600;
-    background: #ef547a !important;
+    background: #cae962 !important;
     color: #111 !important;
     padding: 15px 30px;
     transition: all .2s ease 0s;
@@ -449,7 +449,7 @@ button,
 }
 
 .zr-news .item .zrn-title:hover {
-    color: #ef547a;
+    color: #cae962;
 }
 
 .zr-news .item .zrn-title .news-title {
@@ -582,7 +582,7 @@ button,
     font-size: 12px;
     float: left;
     padding: 2px 0 2px 20px;
-    border-left: 2px solid #ef547a;
+    border-left: 2px solid #cae962;
     margin-right: 20px;
     position: relative;
 }
@@ -590,7 +590,7 @@ button,
 .share-buttons .share-buttons-block .sbb-title span {
     font-weight: 600;
     font-size: 14px;
-    color: #ef547a;
+    color: #cae962;
 }
 
 .share-buttons .share-buttons-block .sbb-social {
@@ -679,7 +679,7 @@ button,
     }
 
     #xheader_menu ul.header_menu-list .nav-item>a:hover {
-        color: #ef547a;
+        color: #cae962;
     }
 
     #xheader_menu.active {

@@ -8,17 +8,11 @@
                 </a>
                 <div class="footer-joingroup">
                     <div class="zoro-group">
-                        <div class="zrg-title"><span class="top">Join now</span><span class="bottom"><?=$websiteTitle?>
-                                Groups</span></div>
                         <div class="zrg-list">
-                            <div class="item"><a target="_blank" href="<?=$websiteUrl?>/donate" class="zr-social-button tl-btn"><i
-                                class="fas fa-donate"></i></a></div>
-                    <div class="item"><a href="<?=$telegram?>" target="_blank" class="zr-social-button dc-btn"><i
-                                class="fab fa-telegram"></i></a></div>
                     <div class="item"><a href="<?=$discord?>" target="_blank"
                             class="zr-social-button dc-btn"><i class="fab fa-discord"></i></a></div>
-                    <div class="item"><a href="<?=$redit?>" target="_blank" class="zr-social-button rd-btn"><i
-                                class="fab fa-reddit-alien"></i></a></div>
+                    <div class="item"><a href="<?=$github?>" target="_blank" class="zr-social-button gh-btn"><i
+                                class="fab fa-github"></i></a></div>
                         </div>
                         <div class="clearfix"></div>
                     </div>
