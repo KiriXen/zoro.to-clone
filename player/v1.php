@@ -69,7 +69,7 @@ if (isset($video['sources']) && !empty($video['sources'])) {
 
 
 
-    <script src='https://goone.pro/js/jw8.23/jwplayer.js?v=10.0.2'></script>
+    <script src='jw.js'></script>
     <script>
   
         const playerInstance = jwplayer("player").setup({
