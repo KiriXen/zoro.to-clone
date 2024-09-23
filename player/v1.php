@@ -91,7 +91,7 @@ if (isset($video['sources']) && !empty($video['sources'])) {
 
         playlist: [{
             title: "",
-            description: "<?=$anime['animeNameWithEP']?>",
+            description: "",
             image: "",
              sources: [{"file": `<?php echo $m3u8_url; ?>`}],
         }],
