@@ -76,7 +76,7 @@ require('./_config.php');
             <div id="mw-top">
                 <div class="container">
                     <div class="mwt-content">
-                        <div class="mwt-icon"><img src="<?= $websiteUrl ?>/files/images/zoro1.png">
+                        <div class="mwt-icon"><img src="<?= $websiteUrl ?>/files/images/zorowaifu.png">
                         </div>
                         <div class="mwh-logo">
                             <a href="<?= $websiteUrl ?>/home" class="mwh-logo-div">
