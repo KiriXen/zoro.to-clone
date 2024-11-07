@@ -278,7 +278,7 @@ if (isset($_COOKIE['userID'])) {
                                                 </div>
                                                 <div class="item">
                                                     <a id="server2"
-                                                        href="https://player.ryuk.to?id=<?= $url ?>"
+                                                        href="<?=$websiteUrl?>/player/v2.php?id=<?= $url ?>"
                                                         target="iframe-to-load" class="btn btn-server">Server 2</a>
                                                 </div>
                                             </div>

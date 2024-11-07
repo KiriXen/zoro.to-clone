@@ -76,7 +76,7 @@ require('./_config.php');
             <div id="mw-top">
                 <div class="container">
                     <div class="mwt-content">
-                        <div class="mwt-icon"><img src="<?= $websiteUrl ?>/files/images/zoro.png">
+                        <div class="mwt-icon"><img src="<?= $websiteUrl ?>/files/images/zoro1.png">
                         </div>
                         <div class="mwh-logo">
                             <a href="<?= $websiteUrl ?>/home" class="mwh-logo-div">
@@ -97,32 +97,29 @@ require('./_config.php');
                             <div class="xhashtag">
                                 <span class="title">Top search:</span>
 
-                                <a href="<?= $websiteUrl ?>/search?keyword=One%20Piece" class="item">One Piece</a>
+                                <a href="<?= $websiteUrl ?>/search?keyword=Dandadan" class="item">Dandadan</a>
 
-                                <a href="<?= $websiteUrl ?>/search?keyword=Naruto%3A%20Shippuden" class="item">Naruto:
-                                    Shippuden</a>
+                                <a href="<?= $websiteUrl ?>/search?keyword=One+Piece" class="item">One Piece</a>
 
-                                <a href="<?= $websiteUrl ?>/search?keyword=Naruto" class="item">Naruto</a>
+                                <a href="<?= $websiteUrl ?>/search?keyword=Solo+leveling" class="item">Solo Leveling</a>
 
-                                <a href="<?= $websiteUrl ?>/search?keyword=Jujutsu%20Kaisen%200%20Movie"
-                                    class="item">Jujutsu Kaisen 0
+                                <a href="<?= $websiteUrl ?>/search?keyword=Jujutsu%20Kaisen%202nd%20Season"
+                                    class="item">Jujutsu Kaisen 2nd Season
                                     Movie</a>
 
-                                <a href="<?= $websiteUrl ?>/search?keyword=Bleach" class="item">Bleach</a>
-
-                                <a href="<?= $websiteUrl ?>/search?keyword=Jujutsu%20Kaisen%20(TV)" class="item">Jujutsu
-                                    Kaisen (TV)</a>
+                                <a href="<?= $websiteUrl ?>/search?keyword=Blue+Lock" class="item">Blue Lock
+                                </a>
 
                                 <a href="<?= $websiteUrl ?>/search?keyword=The%20Eminence%20in%20Shadow" class="item">The
                                     Eminence in
                                     Shadow</a>
 
-                                <a href="<?= $websiteUrl ?>/search?keyword=Mob%20Psycho%20100%20III" class="item">Mob
-                                    Psycho 100 III</a>
+                                <a href="<?= $websiteUrl ?>/search?keyword=Frieren%3A%20Beyond%20Journey%27s%20End" class="item">Frieren: Beyond Journey's End</a>
 
-                                <a href="<?= $websiteUrl ?>/search?keyword=Boruto%3A%20Naruto%20Next%20Generations"
-                                    class="item">Boruto:
-                                    Naruto Next Generations</a>
+                                <a href="<?= $websiteUrl ?>/search?keyword=Dragon%20Ball%20Daima"
+                                    class="item">Dragon Ball Daima</a>
+
+                                <a href="<?= $websiteUrl ?>/search?keyword=My%20Hero%20Academia%20Season%207" class="item">My Hero Academia Season 7</a>
 
                             </div>
                             <div class="clearfix"></div>
