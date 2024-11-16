@@ -11,7 +11,8 @@ $anime = json_decode($json1, true);
 
 if (isset($video['sources']) && !empty($video['sources'])) {
     $highest_quality_index = count($video['sources']) - 1;
-    $m3u8_url = $video['sources'][$highest_quality_index]['file'];
+    $original_m3u8_url = $video['sources'][$highest_quality_index]['file'];
+    $m3u8_url = 'get the proxy from https://github.com/shashstormer/m3u8_proxy-cors ' . urlencode($original_m3u8_url);
 } else {
     echo "Error: M3U8 URL not found in API response";
     exit;
