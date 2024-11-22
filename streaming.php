@@ -2,13 +2,109 @@
 require('./_config.php');
 session_start();
 
+// Add these functions at the top of your file after the existing includes/config
+function getMALId($animeTitle) {
+    try {
+        $cleanTitle = str_replace('-', ' ', $animeTitle);
+        $cleanTitle = preg_replace('/\s*\([^)]*\)/', '', $cleanTitle);
+        $cleanTitle = trim($cleanTitle);
+        $encodedTitle = urlencode($cleanTitle);
 
+        $searchData = @file_get_contents("https://api.jikan.moe/v4/anime?q=$encodedTitle&limit=1");
+        if ($searchData !== false) {
+            $searchData = json_decode($searchData, true);
+            if (isset($searchData['data']) && !empty($searchData['data'])) {
+                return $searchData['data'][0]['mal_id'];
+            }
+        }
+    } catch (Exception $e) {
+        error_log("Failed to get MAL ID: " . $e->getMessage());
+    }
+    return null;
+}
 
+function getMALIdWithCache($animeTitle) {
+    $cacheFile = "cache/mal_ids/" . md5($animeTitle) . ".json";
+    $cacheExpiry = 2592000; // 30 days
+
+    if (file_exists($cacheFile) && (time() - filemtime($cacheFile) < $cacheExpiry)) {
+        return json_decode(file_get_contents($cacheFile), true);
+    }
+
+    $malId = getMALId($animeTitle);
+
+    if ($malId) {
+        if (!file_exists('cache/mal_ids')) {
+            mkdir('cache/mal_ids', 0777, true);
+        }
+        file_put_contents($cacheFile, json_encode($malId));
+    }
+
+    return $malId;
+}
+
+function getFillerEpisodesWithCache($malId, $animeTitle) {
+    $cacheFile = "cache/fillers/" . md5($malId . $animeTitle) . ".json";
+    $cacheExpiry = 86400; // 24 hours
+
+    if (file_exists($cacheFile) && (time() - filemtime($cacheFile) < $cacheExpiry)) {
+        return json_decode(file_get_contents($cacheFile), true);
+    }
+
+    $fillerList = [];
+    
+    // Try Jikan API first
+    if ($malId) {
+        try {
+            $jikanData = @file_get_contents("https://api.jikan.moe/v4/anime/$malId/episodes");
+            if ($jikanData !== false) {
+                $jikanData = json_decode($jikanData, true);
+                if (isset($jikanData['data']) && !empty($jikanData['data'])) {
+                    foreach ($jikanData['data'] as $episode) {
+                        if (isset($episode['filler']) && $episode['filler']) {
+                            $fillerList[] = $episode['mal_id'];
+                        }
+                    }
+                }
+            }
+        } catch (Exception $e) {
+            error_log("Jikan API failed: " . $e->getMessage());
+        }
+    }
+
+    // Try AnimeFiller.com as backup
+    if (empty($fillerList)) {
+        try {
+            $cleanTitle = urlencode(str_replace('-', ' ', $animeTitle));
+            $fillerData = @file_get_contents("https://api.animefiller.com/anime/$cleanTitle");
+            if ($fillerData !== false) {
+                $fillerData = json_decode($fillerData, true);
+                if (isset($fillerData['episodes']) && !empty($fillerData['episodes'])) {
+                    foreach ($fillerData['episodes'] as $episode) {
+                        if ($episode['filler']) {
+                            $fillerList[] = $episode['number'];
+                        }
+                    }
+                }
+            }
+        } catch (Exception $e) {
+            error_log("AnimeFiller.com failed: " . $e->getMessage());
+        }
+    }
+
+    if (!empty($fillerList)) {
+        if (!file_exists('cache/fillers')) {
+            mkdir('cache/fillers', 0777, true);
+        }
+        file_put_contents($cacheFile, json_encode($fillerList));
+    }
+
+    return $fillerList;
+}
 
 $parts = parse_url($_SERVER['REQUEST_URI']);
 $page_url = explode('/', $parts['path']);
 $url = $page_url[count($page_url) - 1];
-//$url = "naruto-episode-2";
 $animeID = explode('-episode-', $url);
 
 $animeID = $animeID[0];
@@ -19,16 +115,13 @@ if (end($slug) == 'dub') {
 } else {
     $dub = "sub";
 }
-;
 
 $getEpisode = file_get_contents("$api/getEpisode/$url");
 $getEpisode = json_decode($getEpisode, true);
 if (isset($getEpisode['error'])) {
     header('Location: home.php');
+    exit();
 }
-;
-
-
 
 $pageID = $url;
 
@@ -45,10 +138,8 @@ if (empty($counter)) {
     $counter = 1;
     mysqli_query($conn, "INSERT INTO `pageview` (pageID,totalview,like_count,dislike_count,animeID) VALUES('$pageID','$counter','1','0','$animeID')");
     header('Location: //' . $pageUrl);
+    exit();
 }
-;
-
-
 
 $anime = $getEpisode['anime_info'];
 $EPISODE_NUMBER = $getEpisode['ep_num'];
@@ -68,7 +159,6 @@ $animeSearch = trim($anime, "-dub");
 $episodelist = $getAnime['episode_id'];
 $firstEpID = $episodelist[0];
 $firstEpID = $firstEpID['episodeId'];
-
 
 $ANIME_RELEASED = $getAnime['released'];
 $ANIME_name = $getAnime['name'];
@@ -90,7 +180,6 @@ if (isset($_COOKIE['userID'])) {
     $user_history = mysqli_fetch_assoc($user_history);
     $user_history_anime_id = $user_history['anime_id'];
     $user_history_id = $user_history['id'];
-    //echo  $user_history_id ;
 
     if (empty($user_history_anime_id)) {
         mysqli_query($conn, "INSERT INTO `user_history` (user_id,anime_id,anime_title,anime_ep,anime_image,anime_release,dubOrSub,anime_type)
@@ -100,20 +189,23 @@ if (isset($_COOKIE['userID'])) {
         mysqli_query($conn, "INSERT INTO `user_history` (user_id,anime_id,anime_title,anime_ep,anime_image,anime_release,dubOrSub,anime_type)
         VALUES('$userID','$url','$ANIME_name','$EPISODE_NUMBER','$ANIME_IMAGE','$ANIME_RELEASED','$dub','$ANIME_TYPE')");
     }
-
 }
+
+// Add this where you process your anime data
+$malId = getMALIdWithCache($ANIME_NAME);
+$fillerList = getFillerEpisodesWithCache($malId, $ANIME_NAME);
 ?>
 <!DOCTYPE html>
 <html prefix="og: http://ogp.me/ns#" xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
 
 <head>
     <title>Watch
-        <?= $getEpisode['animeNameWithEP'] ?>on
+        <?= $getEpisode['animeNameWithEP'] ?> on
         <?= $websiteTitle ?>
     </title>
 
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-    <meta name="title" content="Watch <?= $getEpisode['animeNameWithEP'] ?>on <?= $websiteTitle ?>">
+    <meta name="title" content="Watch <?= $getEpisode['animeNameWithEP'] ?> on <?= $websiteTitle ?>">
     <meta name="description" content="<?= substr($getAnime['synopsis'], 0, 150) ?> ... at <?= $websiteUrl ?>">
     <meta name="keywords"
         content="<?= $websiteTitle ?>, <?= $getEpisode['animeNameWithEP'] ?>,<?= $getAnime['othername'] ?><?= $getAnime['name'] ?>, watch anime online, free anime, anime stream, anime hd, english sub">
@@ -122,7 +214,7 @@ if (isset($_COOKIE['userID'])) {
     <meta name="robots" content="index, follow">
     <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
     <meta http-equiv="Content-Language" content="en">
-    <meta property="og:title" content="Watch <?= $getEpisode['animeNameWithEP'] ?>on <?= $websiteTitle ?>">
+    <meta property="og:title" content="Watch <?= $getEpisode['animeNameWithEP'] ?> on <?= $websiteTitle ?>">
     <meta property="og:description" content="<?= substr($getAnime['synopsis'], 0, 150) ?> ... at <?= $websiteUrl ?>">
     <meta property="og:locale" content="en_US">
     <meta property="og:type" content="website">
@@ -130,7 +222,7 @@ if (isset($_COOKIE['userID'])) {
     <meta property="og:url" content="<?= $websiteUrl ?>/anime/<?= $url ?>">
     <meta itemprop="image" content="<?= $getAnime['imageUrl'] ?>">
     <meta property="og:image" content="<?= $getAnime['imageUrl'] ?>">
-    <meta property="twitter:title" content="Watch <?= $getEpisode['animeNameWithEP'] ?>on <?= $websiteTitle ?>">
+    <meta property="twitter:title" content="Watch <?= $getEpisode['animeNameWithEP'] ?> on <?= $websiteTitle ?>">
     <meta property="twitter:description" content="<?= substr($getAnime['synopsis'], 0, 150) ?> ... at <?= $websiteUrl ?>">
     <meta property="twitter:url" content="<?= $websiteUrl ?>/anime/<?= $url ?>">
     <meta property="twitter:card" content="summary">
@@ -281,6 +373,11 @@ if (isset($_COOKIE['userID'])) {
                                                         href="<?=$websiteUrl?>/player/v2.php?id=<?= $url ?>"
                                                         target="iframe-to-load" class="btn btn-server">Server 2</a>
                                                 </div>
+                                                <div class="item">
+                                                    <a id="server3"
+                                                        href="<?=$websiteUrl?>/player/v3.php?id=<?= $url ?>"
+                                                        target="iframe-to-load" class="btn btn-server">Server 3</a>
+                                                </div>
                                             </div>
                                             <div class="clearfix"></div>
                                             <div id="source-guide"></div>
@@ -292,7 +389,7 @@ if (isset($_COOKIE['userID'])) {
                                     <div class="seasons-block seasons-block-max">
                                         <div id="detail-ss-list" class="detail-seasons">
                                             <div class="detail-infor-content">
-                                                <div style="min-height:43px;" class="ss-choice">
+                                                <div class="ss-choice" style="min-height:43px;">
                                                     <div class="ssc-list">
                                                         <div id="ssc-list" class="ssc-button">
                                                             <div class="ssc-label">List of episodes:</div>
@@ -300,31 +397,28 @@ if (isset($_COOKIE['userID'])) {
                                                     </div>
                                                     <div class="clearfix"></div>
                                                 </div>
-                                                <div id="episodes-page-1" class="ss-list ss-list-min" data-page="1"
-                                                    style="display:block;">
-
-                                                    <?php
-                                                    foreach ($episodelist as $episodelist) { ?>
-                                                        <a title="Episode <?= $episodelist['episodeNum'] ?>"
-                                                            class="ssl-item ep-item <?php if ($getEpisode['ep_num'] === $episodelist['episodeNum']) {
-                                                                echo 'active';
-                                                            } ?>"
-                                                            href="/watch/<?= $episodelist['episodeId'] ?>">
+                                                <div id="episodes-page-1" class="ss-list ss-list-min" data-page="1" style="display:block;">
+                                                    <?php foreach ($episodelist as $episode) : 
+                                                        $isFiller = in_array($episode['episodeNum'], $fillerList); ?>
+                                                        <a title="Episode <?= $episode['episodeNum'] ?>"
+                                                           class="ssl-item ep-item <?= $getEpisode['ep_num'] === $episode['episodeNum'] ? 'active' : '' ?> <?= $isFiller ? 'filler-episode' : '' ?>"
+                                                           href="/watch/<?= $episode['episodeId'] ?>"
+                                                           style="<?= $isFiller ? 'background: linear-gradient(to right, #5a4944, #645a4b);' : '' ?>">
                                                             <div class="ssli-order" title="">
-                                                                <?= $episodelist['episodeNum'] ?>
+                                                                <?= $episode['episodeNum'] ?>
+                                                                <?php if ($isFiller) : ?>
+                                                                    <span class="filler-badge" style="color: red;"></span>
+                                                                <?php endif; ?>
                                                             </div>
                                                             <div class="ssli-detail">
-                                                                <div class="ep-name dynamic-name" data-jname="" title="">
-                                                                </div>
+                                                                <div class="ep-name dynamic-name" data-jname="" title=""></div>
                                                             </div>
                                                             <div class="ssli-btn">
-                                                                <div class="btn btn-circle"><i class="fas fa-play"></i>
-                                                                </div>
+                                                                <div class="btn btn-circle"><i class="fas fa-play"></i></div>
                                                             </div>
                                                             <div class="clearfix"></div>
                                                         </a>
-                                                    <?php } ?>
-                                                </div>
+                                                    <?php endforeach; ?>
                                             </div>
                                         </div>
                                         <div class="clearfix"></div>
