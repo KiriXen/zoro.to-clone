@@ -11,8 +11,8 @@ $anime = json_decode($json1, true);
 
 if (isset($video['sources']) && !empty($video['sources'])) {
     $highest_quality_index = count($video['sources']) - 1;
-    $original_m3u8_url = $video['sources'][$highest_quality_index]['file'];
-    $m3u8_url = 'get the proxy from https://github.com/shashstormer/m3u8_proxy-cors ' . urlencode($original_m3u8_url);
+    $m3u8_url = $video['sources'][$highest_quality_index]['file'];
+    // Adding the proxy before fetching m3u
 } else {
     echo "Error: M3U8 URL not found in API response";
     exit;
@@ -33,10 +33,16 @@ if (isset($video['sources']) && !empty($video['sources'])) {
 
 
     <style>
+
+    .btn-primary:hover,
+    .btn-tab.active:hover {
+        background: #53FF86 !important;
+        border-color: #53FF86 !important
+    }
     .wrap #player {
         position: absolute;
         height: 100% !important;
-        weight: 100 !important;
+        width: 100% !important;
     }
 
     .wrap .btn {
@@ -45,16 +51,23 @@ if (isset($video['sources']) && !empty($video['sources'])) {
         left: 90%;
         transform: translate(-50%, -50%);
         -ms-transform: translate(-50%, -50%);
-        background-color: white;
-        color: black;
+        background-color: #53FF86; /* Changed to theme green */
+        color: #201f31; /* Changed to dark background color for contrast */
         font-size: 12px;
         padding: 6px 12px;
-        border: 1px solid white;
+        border: 1px solid #53FF86; /* Matching border */
         cursor: pointer;
         border-radius: 5px;
+        transition: all 0.3s ease; /* Smooth transition for hover */
     }
 
-    @media screen and (max-width:600px) {
+    .wrap .btn:hover {
+        background-color: #201f31;
+        color: #53FF86;
+        border-color: #53FF86;
+    }
+
+    @media screen and (max-width:600px) and (orientation: landscape) {
         .wrap .btn {
             font-size: 08px;
         }
@@ -78,23 +91,41 @@ if (isset($video['sources']) && !empty($video['sources'])) {
         displaytitle: true,
         displaydescription: true,
         abouttext: "Zoro",
-        aboutlink: "<?=$websiteUrl?>",
-        autostart: true,
+        aboutlink: "",
+        autostart: true, 
         skin: {
-            name: "netflix"
+            controlbar: {
+                background: "rgba(32,31,49,0.8)", // Using your dark background with opacity
+                icons: "rgba(255,255,255,0.8)",
+                iconsActive: "#53FF86", // Using your theme green for active icons
+                text: "#FFFFFF"
+            },
+            menus: {
+                background: "#201f31", // Your dark background
+                text: "rgba(255,255,255,0.8)",
+                textActive: "#53FF86" // Theme green for active text
+            },
+            timeslider: {
+                progress: "#53FF86", // Theme green for progress bar
+                rail: "rgba(255,255,255,0.3)"
+            },
+            tooltips: {
+                background: "#201f31", // Dark background for tooltips
+                text: "#FFFFFF"
+            }
         },
         
-
         logo: {
-            file: "",
-            link: ""
+            file: "https://i.postimg.cc/fT1SkFgk/20241123-004354.png",
+            link: "<?=$websiteUrl?>",
+            hide: true // Hide the logo with player controls
         },
 
         playlist: [{
-            title: "",
-            description: "",
-            image: "",
-             sources: [{"file": `<?php echo $m3u8_url; ?>`}],
+            title: "<?= $anime['title'] ?>",
+            description: "<?= $anime['description'] ?>",
+            image: "<?= $anime['image'] ?>",
+             sources: [{"file": `{get the proxy from https://github.com/shashstormer/m3u8_proxy-cors And paste here}/cors?url=<?php echo $m3u8_url; ?>`}],
         }],
         advertising: {
             client: "vast",
@@ -104,6 +135,8 @@ if (isset($video['sources']) && !empty($video['sources'])) {
             }]
         }
     })
+
+    
     
     playerInstance.on("ready", function() {
         
@@ -123,4 +156,8 @@ if (isset($video['sources']) && !empty($video['sources'])) {
 </body>
 
 </html>
+
+
+
+
 
