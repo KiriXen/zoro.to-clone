@@ -13,8 +13,10 @@ _config.php
 <?php 
 $conn = mysqli_connect("localhost", 'root' , '', "anime") or die("Connection fail"); // mysql database
 
+`localhost` - host name, `root` - Mysql username, and leave it root if u're on localhost , `` - it's the password of the mysql and leave it empty if you're on localhost, 'anime' - It's the database name inside of the mysql, u can give it any name u want ~
+
 $websiteTitle = "Zoro"; // website's name
-$websiteUrl = "//{$_SERVER['SERVER_NAME']}";
+$websiteUrl = "//{$_SERVER['SERVER_NAME']}";  // if on local then after the `}` add a slash and `/name_of_the_folder`
 $websiteLogo = $websiteUrl . "/files/images/logo_zoro.png";
 $contactEmail = "@gmail.com"; // ur email
 
@@ -24,28 +26,21 @@ $discord = "https://dsc.gg/kirixen"; // discord
 $github = "https://github.com/kirixen"; // github
 $twitter = "https://x.com/KiriX3n"; // twitter
  
-$disqus = "https://----.disqus.com/embed.js"; // your disqus shortname
-$api = ""; // the api here 
+$disqus = "https://your_disqus_shortname_here.disqus.com/embed.js"; // your disqus shortname
+$api = ""; // api here without the '/' at the end
 
 $banner = $websiteUrl . "/files/images/banner.png";
 ?>
 
 ```
 
+The table for the database is on the `AutoAnime.sql`
+
 ## Local Deployment
 
-You need to have `php` installed on your pc for following the intructions
+You need to have `xampp` installed on your pc for following the intructions
 
-First download the repository using
-```
-git clone https://github.com/Kirixen/zoro.to-clone
-```
+Go check out on yt on how to install n use it yeah !
 
-Now start the production build of the site using
-```
-php -S localhost:8888
-```
-
-This will start the app on http://localhost:8888 <br>
 Make Sure You Edit $websiteUrl in _config.php before starting in localhost.. <br>
 And Enable the use of .htaccess in PHP enviornment
