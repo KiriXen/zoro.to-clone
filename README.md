@@ -1,9 +1,15 @@
-[![Join our Discord server!](https://invidget.switchblade.xyz/VsPXjNRcbw)](https://discord.com/invite/VsPXjNRcbw)
-<hr/>
+This project no longer works(you can edit it if u want)
+
+## try this 👇
+
+[Better version of the site](https://github.com/PacaHat/Anipaca)
 
 ## Acknowledgements
 
 [anime-api](https://github.com/kirixen/gogo-api) The api used for the need of this website. 
+
+[![Join our Discord server!](https://invidget.switchblade.xyz/VsPXjNRcbw)](https://discord.com/invite/VsPXjNRcbw)
+<hr/>
 
 ## Requirements
 --> Php environment (use .htaccess must be enabled in localhost) or Directly Upload the code on php supported hosting (No editing Required Just Upload and Enjoy)
